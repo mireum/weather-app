@@ -14,19 +14,42 @@ const getWeather = async () => {
   try {
     const response = await fetch(API_URL);
     const json = await response.json();
-    return JSON.stringify(json);
+    // console.log(typeof json);
+    // console.log(json);
+    return json;
   } catch (err) {
     console.error(err);
   }
 }
 
 export default async function Home() {
-  const weather = await getWeather();
-  
+  let weather = await getWeather();
+  // console.log(weather.response.body.items);
+  let info = weather.response.body.items.item;
+  info = JSON.stringify(info);
+  // const infoArr = Object.values(info);
+  // console.log(infoArr);
+  // console.log(typeof info);
+  console.log(info);
+  // weather = JSON.stringify(weather);
+  // weather = JSON.parse(weather);
+  // weather = Object.values(weather.response.body.items.item);
+  // let ww = weather.response.body.items.item;
+  // console.log('ww::', ww);
+  // const qw = JSON.parse(ww);
+  // console.log('qw::', qw);
+  // const ww = JSON.parse(JSON.stringify(weather.response.body.items.item));
   return (
     <>
-      <div>{weather}</div>
-      <div>{weather.body}</div>
+      <div>{info}</div>
+      {/* <div>
+        {info.map((item, index) => {
+          <div key={index}>{item.category}</div>
+        })}
+      </div> */}
+      {/* <div>{weather.response.body.items.item}</div> */}
+      {/* <hr/> */}
+      {/* <div>{weather.response.body.items.item[0]}</div> */}
     </>
   );
 }
