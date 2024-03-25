@@ -1,15 +1,14 @@
 "use client"
-
 import React, { useEffect, useState } from "react";
 
-export default function Geolocation({location, setLocation}) {
-  // const [location, setLocation] = useState({
-  //   latitude: null,
-  //   longitude: null,
-  // });
-
+export default function Getlocation() {
+  const [location, setLocation] = useState({
+    latitude: null,
+    longitude: null,
+  });
+  // getCurrentPosition
   useEffect(() => {
-    const watcher = navigator.geolocation.getCurrentPosition((position) => {
+    const watcher = navigator.geolocation.watchPosition((position) => {
       setLocation({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,

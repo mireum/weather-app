@@ -1,6 +1,7 @@
 "use client"
 import { Suspense, useState } from "react";
-import Geolocation from "./getLocation";
+import Getlocation from "./getLocation";
+// import Getlocation from "./getLocation";
 
 // import styles from "./page.module.css";
 // import { OpenGraph } from "../layout";
@@ -13,7 +14,7 @@ import Geolocation from "./getLocation";
 //   // }
 // };
 
-export const API_URL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D&numOfRows=12&pageNo=1&dataType=JSON&base_date=20240325&base_time=0500&nx=55&ny=127";
+export const API_URL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D&numOfRows=12&pageNo=1&dataType=JSON&base_date=20240325&base_time=2000&nx=55&ny=127";
 
 const getWeather = async () => {
   try {
@@ -26,10 +27,7 @@ const getWeather = async () => {
 }
 
 export default async function Home() {
-  const [location, setLocation] = useState({
-    latitude: null,
-    longitude: null,
-  });
+
   const weather = await getWeather();
   const info = weather.response.body.items.item;
   // console.log(info);
@@ -49,13 +47,11 @@ export default async function Home() {
   const REH = info[10].fcstValue;
   // 강수확률
   const rain = info[8].fcstValue;
-  console.log(location);
+  // console.log(location);
   return (
     <>
       {/* <div>강수확률: {rain}</div> */}
-      <Suspense>
-        <Geolocation location={location} setLocation={setLocation} />
-      </Suspense>
+      <Getlocation />
     </>
   );
 }

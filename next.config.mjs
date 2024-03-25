@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+// 중복요청방지
+const nextConfig = {
+  reactStrictMode: false,
+};
 
 export default nextConfig;
