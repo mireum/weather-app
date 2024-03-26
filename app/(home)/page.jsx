@@ -1,5 +1,6 @@
 "use client"
 
+import dfs_xy_conv from "@/components/function";
 import { useEffect, useState } from "react";
 // import { OpenGraph } from "../layout";
 
@@ -11,16 +12,6 @@ import { useEffect, useState } from "react";
 // };
 
 export const API_URL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D&numOfRows=12&pageNo=1&dataType=JSON&base_date=20240326&base_time=1400&nx=55&ny=127";
-
-// const getWeather = async () => {
-//   try {
-//     const response = await fetch(API_URL);
-//     const json = await response.json();
-//     return json;
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
 
 export default function Home() {
 
@@ -46,13 +37,16 @@ export default function Home() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
+
   useEffect(() => {
     const getLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
+            const nxny = dfs_xy_conv("toXY", position.coords.latitude, position.coords.longitude);
+            console.log(nxny);
+            setLatitude(nxny.x);
+            setLongitude(nxny.y);
           },
           (error) => {
             console.error('Error getting geolocation:', error);
@@ -74,12 +68,8 @@ export default function Home() {
           const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
           const baseDate = '20240326';
           const baseTime = '1400';
-          // const nx = '55';
-          // const ny = '127';
-          const nx = '55';
-          const ny = '123';
-          // const nx = Math.floor((longitude - 124) * 88 / 1.2); // 경도에 따른 nx 계산
-          // const ny = Math.floor((latitude - 33) * 68 / 1.0); // 위도에 따른 ny 계산
+          const nx = `${longitude}`;
+          const ny = `${latitude}`;
           const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
 
           const response = await fetch(apiUrl);
@@ -95,6 +85,9 @@ export default function Home() {
     }
   }, [latitude, longitude]);
  
+  // const rs = dfs_xy_conv("toXY", "37.40422435", "126.7163943");
+  // console.log("격자::", rs);
+
   return (
     <>
       <div>
