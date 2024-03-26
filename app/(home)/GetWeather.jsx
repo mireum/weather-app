@@ -12,6 +12,7 @@ export const getWeather = async () => {
 
 export default async function GetWeather() {
   const weather = await getWeather();
+
   const info = weather.response.body.items.item;
   const TMP = info[0].fcstValue;
   const VEC = info[3].fcstValue;

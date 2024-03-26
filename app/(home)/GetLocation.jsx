@@ -1,28 +1,29 @@
+"use client"
 
-export const getInfo = async (aa) => {
-  navigator.geolocation.getCurrentPosition((pos) => {
-    aa.push(pos)
-  })
-}
+import React, { useEffect, useState } from "react";
 
-export default async function GetLocation() {
-  let aa = [];
-  // const [location, setLocation] = useState({
-  //   latitude: null,
-  //   longitude: null,
-  // });
-  // // getCurrentPosition
-  // useEffect(() => {
-  //   const watcher = navigator.geolocation.watchPosition((position) => {
-  //     setLocation({
-  //       latitude: position.coords.latitude,
-  //       longitude: position.coords.longitude,
-  //     });
-  //   });
-  //   return () => navigator.geolocation.clearWatch(watcher);
-  // }, []);
-  await getInfo(aa);
-  console.log(aa);
+export default function GetLocation() {
+  const [location, setLocation] = useState({
+    latitude: null,
+    longitude: null,
+  });
+  
+  // getCurrentPosition
+  useEffect(() => {
+    if (navigator.geolocation) {
+      const watcher = navigator.geolocation.watchPosition((position) => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+      return () => navigator.geolocation.clearWatch(watcher);
+    }
+    else console.log("no navigator");
+
+  }, [location]);
+  // await getInfo(aa);
+
   return (
     <div>
       <h1>Your Current Location</h1>
