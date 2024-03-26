@@ -74,15 +74,17 @@ export default function Home() {
           const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
           const baseDate = '20240326';
           const baseTime = '1400';
+          // const nx = '55';
+          // const ny = '127';
           const nx = '55';
-          const ny = '127';
+          const ny = '123';
           // const nx = Math.floor((longitude - 124) * 88 / 1.2); // 경도에 따른 nx 계산
           // const ny = Math.floor((latitude - 33) * 68 / 1.0); // 위도에 따른 ny 계산
           const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
 
           const response = await fetch(apiUrl);
           const data = await response.json();
-          console.log(data);
+          // console.log(data.response.body.items.item);
           setWeatherData(data);
         } catch (error) {
           console.error('Error fetching weather data:', error);
