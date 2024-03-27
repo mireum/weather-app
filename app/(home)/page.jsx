@@ -85,9 +85,6 @@ export default function Home() {
     }
   }, [latitude, longitude]);
  
-  // const rs = dfs_xy_conv("toXY", "37.40422435", "126.7163943");
-  // console.log("격자::", rs);
-
   return (
     <>
       <div>
@@ -99,10 +96,12 @@ export default function Home() {
         ) : (
           <p>위치 정보를 가져오는 중...</p>
         )}
+
         {weatherData ? (
           <div>
-            <h2>날씨 데이터</h2>
+            <h2>현위치의 날씨</h2>
             <pre>{JSON.stringify(weatherData, null, 2)}</pre>
+            {/* <weatherData data={JSON.stringify(weatherData)}/> */}
           </div>
         ) : (
           <p>날씨 정보를 가져오는 중...</p>
