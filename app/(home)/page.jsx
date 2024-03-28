@@ -1,8 +1,8 @@
 "use client"
 
-import dfs_xy_conv from "@/components/function";
-import WeatherData from "@/components/weatherData";
 import { useEffect, useState } from "react";
+import dfs_xy_conv from "@/components/Function";
+import WeatherData from "@/components/weatherData";
 // import { OpenGraph } from "../layout";
 
 // export const metadata = {
@@ -12,15 +12,22 @@ import { useEffect, useState } from "react";
 //   // }
 // };
 
-export const API_URL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D&numOfRows=12&pageNo=1&dataType=JSON&base_date=20240326&base_time=1400&nx=55&ny=127";
-
 export default function Home() {
+  const GetClock = () => {
+    const d = new Date();
+    const h = String(d.getHours()).padStart(2,"0");
+    const m = String(d.getMinutes()).padStart(2,"0");
+
+    return `${h}:${m}`;
+  };
+  
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [time, setTime] = useState(GetClock());
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    const getLocation = () => {
+    const GetLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -38,12 +45,12 @@ export default function Home() {
       }
     };
 
-    getLocation();
+    GetLocation();
   }, []);
 
   useEffect(() => {
     if (latitude && longitude) {
-      const fetchData = async () => {
+      const FetchData = async () => {
         try {
           const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
           const baseDate = '20240328';
@@ -54,33 +61,40 @@ export default function Home() {
 
           const response = await fetch(apiUrl);
           const data = await response.json();
-          // console.log(data.response.body.items.item);
           setWeatherData(data);
         } catch (error) {
           console.error('Error fetching weather data:', error);
         }
       };
 
-      fetchData();
+      FetchData();
     }
   }, [latitude, longitude]);
  
+  useEffect(() => {
+    const IntervalTime = setInterval(() => {
+      setTime(GetClock());
+      }, 60000);
+    return () => clearInterval(IntervalTime);
+  }, []);
+
+
   return (
     <>
       <div>
-        <h1>사용자 위치 정보</h1>
+        {/* <h1>사용자 위치 정보</h1>
         {latitude && longitude ? (
           <p>
             위도: {latitude}, 경도: {longitude}
           </p>
         ) : (
           <p>위치 정보를 가져오는 중...</p>
-        )}
+        )} */}
+        <div>현재 시각 {time}</div>
 
         {weatherData ? (
           <div>
-            <h2>현위치의 날씨</h2>
-            {/* <pre>{JSON.stringify(weatherData, null, 2)}</pre> */}
+            <h2>현위치 기상</h2>
             <WeatherData data={weatherData.response.body.items.item}/>
           </div>
         ) : (

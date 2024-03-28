@@ -5,7 +5,11 @@ export default function WeatherData({data}) {
   // 현재 기온
   const TMP = data[0].fcstValue;
   // 풍향
-  const VEC = data[3].fcstValue;
+  let VEC = data[3].fcstValue;
+  if (VEC <= 90) {VEC = '동풍'}
+  else if (VEC <= 180) {VEC = '남풍'}
+  else if (VEC <= 270) {VEC = '서풍'}
+  else {VEC = '북풍'}
   // 풍속
   const WSD = data[4].fcstValue;
   // 구름
@@ -19,7 +23,6 @@ export default function WeatherData({data}) {
   } else {
     SKY = '흐림';
   }
-
   // 강수확률
   const POP = data[7].fcstValue;
   // 1시간 강수량
@@ -31,12 +34,12 @@ export default function WeatherData({data}) {
     <div>
       <ul>
         <li>현재 기온: {TMP}&#8451;</li>
-        <li>풍향: {VEC} deg</li>
+        <li>풍향: {VEC}</li>
         <li>풍속: {WSD}m/s</li>
         <li>구름: {SKY}</li>
         <li>{POP === '강수없음' ? '' : `강수 확률: ${POP}%`}</li>
         {PCP === '강수없음' ? <li>강수량: 강수없음</li> :  <li>`강수량: ${PCP}mm`</li>}
-        <li>습도: {REH} %</li>
+        <li>습도: {REH}%</li>
       </ul>
     </div>
   );
