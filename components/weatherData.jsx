@@ -30,12 +30,12 @@ export default function WeatherData({data}) {
   return (
     <div>
       <ul>
-        <li>현재 기온: {TMP} &#8451;</li>
+        <li>현재 기온: {TMP}&#8451;</li>
         <li>풍향: {VEC} deg</li>
         <li>풍속: {WSD}m/s</li>
         <li>구름: {SKY}</li>
-        <li>{POP == '강수없음' ? '' : `강수 확률: ${POP}%`}</li>
-        <li>강수량: {PCP}mm</li>
+        <li>{POP === '강수없음' ? '' : `강수 확률: ${POP}%`}</li>
+        {PCP === '강수없음' ? <li>강수량: 강수없음</li> :  <li>`강수량: ${PCP}mm`</li>}
         <li>습도: {REH} %</li>
       </ul>
     </div>
