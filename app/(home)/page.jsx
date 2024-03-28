@@ -1,6 +1,7 @@
 "use client"
 
 import dfs_xy_conv from "@/components/function";
+import WeatherData from "@/components/weatherData";
 import { useEffect, useState } from "react";
 // import { OpenGraph } from "../layout";
 
@@ -14,26 +15,6 @@ import { useEffect, useState } from "react";
 export const API_URL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D&numOfRows=12&pageNo=1&dataType=JSON&base_date=20240326&base_time=1400&nx=55&ny=127";
 
 export default function Home() {
-
-  // const weather = await getWeather();
-  // const info = weather.response.body.items.item;
-  // console.log(info);
-  // 현재 기온
-  // const TMP = info[0].fcstValue;
-  // // 풍향
-  // const VEC = info[3].fcstValue;
-  // // 풍속
-  // const WSD = info[4].fcstValue;
-  // // 하늘상태
-  // const SKY = info[5].fcstValue;
-  // // 강수확률
-  // const POP = info[7].fcstValue;
-  // // 1시간 강수량
-  // const PCP = info[9].fcstValue;
-  // // 습도
-  // const REH = info[10].fcstValue;
-  // // 강수확률
-  // const rain = info[8].fcstValue;
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
@@ -57,7 +38,6 @@ export default function Home() {
       }
     };
 
-    // 페이지가 마운트될 때 위치 정보를 가져옴
     getLocation();
   }, []);
 
@@ -66,8 +46,8 @@ export default function Home() {
       const fetchData = async () => {
         try {
           const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
-          const baseDate = '20240326';
-          const baseTime = '1400';
+          const baseDate = '20240328';
+          const baseTime = '0800';
           const nx = `${longitude}`;
           const ny = `${latitude}`;
           const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
@@ -100,8 +80,8 @@ export default function Home() {
         {weatherData ? (
           <div>
             <h2>현위치의 날씨</h2>
-            <pre>{JSON.stringify(weatherData, null, 2)}</pre>
-            {/* <weatherData data={JSON.stringify(weatherData)}/> */}
+            {/* <pre>{JSON.stringify(weatherData, null, 2)}</pre> */}
+            <WeatherData data={weatherData.response.body.items.item}/>
           </div>
         ) : (
           <p>날씨 정보를 가져오는 중...</p>
