@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import dfs_xy_conv from "@/components/Function";
 import WeatherData from "@/components/weatherData";
+import styles from "../../styles/page.module.css"
 // import { OpenGraph } from "../layout";
 
 // export const metadata = {
@@ -13,17 +14,9 @@ import WeatherData from "@/components/weatherData";
 // };
 
 export default function Home() {
-  const GetClock = () => {
-    const d = new Date();
-    const h = String(d.getHours()).padStart(2,"0");
-    const m = String(d.getMinutes()).padStart(2,"0");
 
-    return `${h}:${m}`;
-  };
-  
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [time, setTime] = useState(GetClock());
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
@@ -71,17 +64,9 @@ export default function Home() {
     }
   }, [latitude, longitude]);
  
-  useEffect(() => {
-    const IntervalTime = setInterval(() => {
-      setTime(GetClock());
-      }, 60000);
-    return () => clearInterval(IntervalTime);
-  }, []);
-
-
   return (
     <>
-      <div>
+      <div className={styles.container}>
         {/* <h1>사용자 위치 정보</h1>
         {latitude && longitude ? (
           <p>
@@ -90,10 +75,6 @@ export default function Home() {
         ) : (
           <p>위치 정보를 가져오는 중...</p>
         )} */}
-        <div>
-          <h4>현위치 기상</h4>
-          <div>현재 시각 {time}</div>
-        </div>
         {weatherData ? (
           <WeatherData data={weatherData.response.body.items.item}/>
         ) : (

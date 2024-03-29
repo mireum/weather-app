@@ -1,5 +1,15 @@
-export default function WeatherData({data}) {
+"use client"
+import { useEffect, useState } from "react";
 
+export default function WeatherData({data}) {
+  const GetClock = () => {
+    const d = new Date();
+    const h = String(d.getHours()).padStart(2,"0");
+    const m = String(d.getMinutes()).padStart(2,"0");
+
+    return `${h}:${m}`;
+  };
+  const [time, setTime] = useState(GetClock());
   console.log(data);
 
   // 현재 기온
@@ -30,8 +40,19 @@ export default function WeatherData({data}) {
   // 습도
   const REH = data[10].fcstValue;
   
+  useEffect(() => {
+    const IntervalTime = setInterval(() => {
+      setTime(GetClock());
+      }, 60000);
+    return () => clearInterval(IntervalTime);
+  }, []);
+
   return (
     <div>
+      <div>
+        <h4>현위치 기상</h4>
+        <div>현재 시각 {time}</div>
+      </div>
       <ul>
         <li>현재 기온: {TMP}&#8451;</li>
         <li>풍향: {VEC}</li>
