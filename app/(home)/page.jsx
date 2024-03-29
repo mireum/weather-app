@@ -90,13 +90,12 @@ export default function Home() {
         ) : (
           <p>위치 정보를 가져오는 중...</p>
         )} */}
-        <div>현재 시각 {time}</div>
-
+        <div>
+          <h4>현위치 기상</h4>
+          <div>현재 시각 {time}</div>
+        </div>
         {weatherData ? (
-          <div>
-            <h2>현위치 기상</h2>
-            <WeatherData data={weatherData.response.body.items.item}/>
-          </div>
+          <WeatherData data={weatherData.response.body.items.item}/>
         ) : (
           <p>날씨 정보를 가져오는 중...</p>
         )}
