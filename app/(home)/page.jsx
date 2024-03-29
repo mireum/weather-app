@@ -66,20 +66,14 @@ export default function Home() {
  
   return (
     <>
-      <div className={styles.container}>
-        {/* <h1>사용자 위치 정보</h1>
-        {latitude && longitude ? (
-          <p>
-            위도: {latitude}, 경도: {longitude}
-          </p>
-        ) : (
-          <p>위치 정보를 가져오는 중...</p>
-        )} */}
-        {weatherData ? (
-          <WeatherData data={weatherData.response.body.items.item}/>
-        ) : (
-          <p>날씨 정보를 가져오는 중...</p>
-        )}
+      <div>
+        <div className={styles.container}>
+          {weatherData ? (
+            <WeatherData data={weatherData.response.body.items.item}/>
+          ) : (
+            <p>날씨 정보를 가져오는 중...</p>
+          )}
+        </div>
       </div>
     </>
   );

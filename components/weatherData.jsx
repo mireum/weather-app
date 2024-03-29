@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
+import styles from "../styles/weatherData.module.css";
 
 export default function WeatherData({data}) {
   const GetClock = () => {
@@ -48,7 +49,7 @@ export default function WeatherData({data}) {
   }, []);
 
   return (
-    <div>
+    <div className={styles.dataContainer}>
       <div>
         <h4>현위치 기상</h4>
         <div>현재 시각 {time}</div>
