@@ -1,4 +1,14 @@
 .dataContainer {
+  margin: 0 auto;
+  width: 80%;
   background-color: blueviolet;
   padding: 20px;
+  height: 300px;
+  
+}
+
+.timeBox {
+  display: flex;
+  font-weight: bold;
+  font-size: 20px;
 }

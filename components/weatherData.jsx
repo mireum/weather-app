@@ -50,8 +50,8 @@ export default function WeatherData({data}) {
 
   return (
     <div className={styles.dataContainer}>
-      <div>
-        <h4>현위치 기상</h4>
+      <div className={styles.timeBox}>
+        <div>현위치 기상</div>
         <div>현재 시각 {time}</div>
       </div>
       <ul>
