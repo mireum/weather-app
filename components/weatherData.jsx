@@ -52,7 +52,7 @@ export default function WeatherData({data}) {
     <div className={styles.dataContainer}>
       <div className={styles.timeBox}>
         <div>현위치 기상</div>
-        <div>현재 시각 {time}</div>
+        <div>{time}</div>
       </div>
       <ul>
         <li>현재 기온: {TMP}&#8451;</li>
