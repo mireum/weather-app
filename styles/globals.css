@@ -5,18 +5,41 @@
 @layer components {
   .dataContainer {
     margin: 0 auto;
-    width: 80%;
+    width: 50%;
     background-color: #fff;
-    padding: 20px;
-    height: 300px;
+    /* height: 300px; */
   }
   .timeBox {
     display: flex;
     font-weight: bold;
     font-size: 20px;
+    justify-content: center;
+    padding: 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+  }
+  .timeBox > div + div {
+    margin-left: 30px;
+  }
+  .dataBox {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
   }
   .iconBox {
     width: 100px;
     height: 100px;
+  }
+  .data {
+    width: 60%;
+    border: 1px solid #111;
+  }
+  .data ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .data li {
+    padding: 12px 0;
   }
 }
