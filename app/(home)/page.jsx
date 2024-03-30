@@ -46,7 +46,7 @@ export default function Home() {
       const FetchData = async () => {
         try {
           const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
-          const baseDate = '20240328';
+          const baseDate = '20240330';
           const baseTime = '0800';
           const nx = `${longitude}`;
           const ny = `${latitude}`;
