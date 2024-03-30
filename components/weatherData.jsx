@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
-import styles from "../styles/weatherData.module.css";
+import { TiWeatherCloudy, TiWeatherDownpour, TiWeatherPartlySunny, TiWeatherSunny } from "react-icons/ti";
+// import styles from "../styles/weatherData.module.css";
 
 export default function WeatherData({data}) {
   const GetClock = () => {
@@ -40,6 +41,12 @@ export default function WeatherData({data}) {
   const PCP = data[9].fcstValue;
   // 습도
   const REH = data[10].fcstValue;
+  // 아이콘
+  let icon;
+  if (Number(POP) > 70) {icon = 'rainy'}
+  else if (SKY === "맑음") {icon = 'sunny'}
+  else if (SKY === "구름 많음") {icon = 'partlySun'}
+  else {icon = 'cloudy'}
   
   useEffect(() => {
     const IntervalTime = setInterval(() => {
@@ -49,10 +56,23 @@ export default function WeatherData({data}) {
   }, []);
 
   return (
-    <div className={styles.dataContainer}>
-      <div className={styles.timeBox}>
+    <div className='dataContainer'>
+      <div className={'timeBox'}>
         <div>현위치 기상</div>
         <div>{time}</div>
+      </div>
+      <div>
+        {/* 구름 */}
+        {/* <TiWeatherCloudy className="iconBox"/> */}
+        {/* 비 */}
+        {/* <TiWeatherDownpour /> */}
+        {/* 구름있음 */}
+        {/* <TiWeatherPartlySunny /> */}
+        {icon === 'rainy' ? <TiWeatherDownpour className="iconBox"/>
+        : icon === 'sunny' ? <TiWeatherSunny className="iconBox"/>
+        : icon === 'partlySun' ? <TiWeatherPartlySunny className="iconBox"/>
+        : <TiWeatherCloudy className="iconBox"/>
+        }
       </div>
       <ul>
         <li>현재 기온: {TMP}&#8451;</li>
