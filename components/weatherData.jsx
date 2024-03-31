@@ -62,22 +62,22 @@ export default function WeatherData({data}) {
         <div>{time}</div>
       </div>
       <div className="dataBox">
-        <div>
-          {icon === 'rainy' ? <TiWeatherDownpour className="iconBox"/>
-          : icon === 'sunny' ? <TiWeatherSunny className="iconBox"/>
-          : icon === 'partlySun' ? <TiWeatherPartlySunny className="iconBox"/>
-          : <TiWeatherCloudy className="iconBox"/>
+        <div className="iconBox">
+          {icon === 'rainy' ? <TiWeatherDownpour className="icon"/>
+          : icon === 'sunny' ? <TiWeatherSunny className="icon"/>
+          : icon === 'partlySun' ? <TiWeatherPartlySunny className="icon"/>
+          : <TiWeatherCloudy className="icon"/>
           }
         </div>
         <div className="data">
           <ul>
-            <li>현재 기온: {TMP}&#8451;</li>
-            <li>풍향: {VEC}</li>
-            <li>풍속: {WSD}m/s</li>
-            <li>구름: {SKY}</li>
-            <li>{POP === '강수없음' ? '' : `강수 확률: ${POP}%`}</li>
-            {PCP === '강수없음' ? <li>강수량: 강수없음</li> :  <li>`강수량: ${PCP}mm`</li>}
-            <li>습도: {REH}%</li>
+            <li><span className="label">현재 기온</span><span className="value">{TMP}&#8451;</span></li>
+            <li><span className="label">풍향</span><span className="value">{VEC}</span></li>
+            <li><span className="label">풍속</span><span className="value">{WSD}m/s</span></li>
+            <li><span className="label">구름</span><span className="value">{SKY}</span></li>
+            <li><span className="label">강수 확률</span><span className="value">{POP}%</span></li>
+            <li><span className="label">강수량</span><span className="value">{PCP === '강수없음' ? '강수없음' : `${PCP}mm`}</span></li>
+            <li><span className="label">습도</span><span className="value">{REH}%</span></li>
           </ul>
         </div>
       </div>

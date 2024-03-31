@@ -21,25 +21,40 @@
     margin-left: 30px;
   }
   .dataBox {
-    width: 80%;
+    /* width: 80%; */
+    padding: 20px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
-  .iconBox {
+  /* .iconBox {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+  .icon {
     width: 100px;
     height: 100px;
   }
   .data {
-    width: 60%;
+    width: 80%;
     border: 1px solid #111;
   }
   .data ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    /* align-items: center; */
+    justify-content: flex-start;
+    
   }
   .data li {
+    width: 50%;
     padding: 12px 0;
   }
 }
