@@ -78,6 +78,7 @@ export default function WeatherData({data}) {
             <li><span className="label">강수 확률</span><span className="value">{POP}%</span></li>
             <li><span className="label">강수량</span><span className="value">{PCP === '강수없음' ? '강수없음' : `${PCP}mm`}</span></li>
             <li><span className="label">습도</span><span className="value">{REH}%</span></li>
+            <li><span className="label">미세먼지</span><span className="value">매우나쁨</span></li>
           </ul>
         </div>
       </div>
