@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { TiWeatherCloudy, TiWeatherDownpour, TiWeatherPartlySunny, TiWeatherSunny } from "react-icons/ti";
-// import styles from "../styles/weatherData.module.css";
 
 export default function WeatherData({data, position}) {
   const GetClock = () => {
@@ -15,8 +14,8 @@ export default function WeatherData({data, position}) {
 
   const [time, setTime] = useState(GetClock());
   const [location, setLocation] = useState(null);
-  console.log(data);
-  console.log(position);
+  console.log('기상데이터::', data);
+  console.log('현위치::', position);
   // 현재 기온
   const TMP = data[0].fcstValue;
   // 풍향
@@ -74,10 +73,11 @@ export default function WeatherData({data, position}) {
         // console.log(response);
         // const data = await response.json();
         // setLocation(data);
-        const data = await fetch('http://localhost:8080/api/route');
-        // const json = data.json();
-        console.log('tat::',data);
-
+        const data = await fetch('http://localhost:8080/api/getLocation');
+        const json = await data.json();
+        console.log('json::',json);
+        setLocation(json.response.result[0].structure.level1);
+  
       } catch (error) {
         console.error('Error fetching location data:', error);
       }
@@ -88,7 +88,7 @@ export default function WeatherData({data, position}) {
   return (
     <div className='dataContainer'>
       <div className={'timeBox'}>
-        <div>현위치 {location ? '인천' : '없ㅇ음'} 기상</div>
+        <div>현재 {!location ? '' : location} 기상</div>
         <div>{time}</div>
       </div>
       <div className="dataBox">
