@@ -74,7 +74,8 @@ export default function WeatherData({data, position}) {
         // console.log(response);
         // const data = await response.json();
         // setLocation(data);
-        const data = await fetch('/api/route');
+        const data = await fetch('http://localhost:8080/api/route');
+        // const json = data.json();
         console.log('tat::',data);
 
       } catch (error) {
