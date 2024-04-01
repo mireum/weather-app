@@ -73,7 +73,16 @@ export default function WeatherData({data, position}) {
         // console.log(response);
         // const data = await response.json();
         // setLocation(data);
-        const data = await fetch('http://localhost:8080/api/getLocation');
+        const data = await fetch('http://localhost:8080/api/getLocation', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            lng: `${position[1]}`,
+            lat: `${position[0]}`,
+          })
+        });
         const json = await data.json();
         console.log('json::',json);
         setLocation(json.response.result[0].structure.level1);
