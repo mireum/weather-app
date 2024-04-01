@@ -1,5 +1,5 @@
 "use client"
-import { GET } from "@/app/api/route";
+
 import { useEffect, useState } from "react";
 import { TiWeatherCloudy, TiWeatherDownpour, TiWeatherPartlySunny, TiWeatherSunny } from "react-icons/ti";
 // import styles from "../styles/weatherData.module.css";
@@ -74,7 +74,8 @@ export default function WeatherData({data, position}) {
         // console.log(response);
         // const data = await response.json();
         // setLocation(data);
-        await fetch('/api/route/GET');
+        const data = await fetch('/api/route');
+        console.log('tat::',data);
 
       } catch (error) {
         console.error('Error fetching location data:', error);
