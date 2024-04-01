@@ -18,6 +18,7 @@ export default function Home() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
+  const [position, setPosition] = useState([]);
 
   useEffect(() => {
     const GetLocation = () => {
@@ -28,6 +29,7 @@ export default function Home() {
             console.log(nxny);
             setLatitude(nxny.x);
             setLongitude(nxny.y);
+            setPosition([nxny.lat, nxny.lng]);
           },
           (error) => {
             console.error('Error getting geolocation:', error);
@@ -46,7 +48,7 @@ export default function Home() {
       const FetchData = async () => {
         try {
           const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
-          const baseDate = '20240330';
+          const baseDate = '20240401';
           const baseTime = '0800';
           const nx = `${longitude}`;
           const ny = `${latitude}`;
@@ -69,7 +71,7 @@ export default function Home() {
       <div>
         <div className={styles.container}>
           {weatherData ? (
-            <WeatherData data={weatherData.response.body.items.item}/>
+            <WeatherData data={weatherData.response.body.items.item} position={position}/>
           ) : (
             <p>날씨 정보를 가져오는 중...</p>
           )}

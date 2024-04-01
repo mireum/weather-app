@@ -1,9 +1,10 @@
 "use client"
+import { GET } from "@/app/api/route";
 import { useEffect, useState } from "react";
 import { TiWeatherCloudy, TiWeatherDownpour, TiWeatherPartlySunny, TiWeatherSunny } from "react-icons/ti";
 // import styles from "../styles/weatherData.module.css";
 
-export default function WeatherData({data}) {
+export default function WeatherData({data, position}) {
   const GetClock = () => {
     const d = new Date();
     const h = String(d.getHours()).padStart(2,"0");
@@ -11,9 +12,11 @@ export default function WeatherData({data}) {
 
     return `${h}:${m}`;
   };
-  const [time, setTime] = useState(GetClock());
-  console.log(data);
 
+  const [time, setTime] = useState(GetClock());
+  const [location, setLocation] = useState(null);
+  console.log(data);
+  console.log(position);
   // 현재 기온
   const TMP = data[0].fcstValue;
   // 풍향
@@ -55,10 +58,35 @@ export default function WeatherData({data}) {
     return () => clearInterval(IntervalTime);
   }, []);
 
+  useEffect(() => {
+    const GetLocation = async () => {
+      try {
+        // const apiKey = '481EB071-C586-3A91-9DB2-23C53DC4ACA0';
+        // const crs = 'EPSG:4019';
+        // const point = `${position[1]},${position[0]}`;
+        // const format = 'json';
+        // const type = 'PARCEL';
+        // const zipcode = 'false';
+        // // const simple = 'true';
+        // const apiUrl = `https://api.vworld.kr/req/address?service=address&request=getAddress&version=2.0&key=${apiKey}&crs=${crs}&point=${point}&format=${format}&type=${type}&zipcode=${zipcode}&errorFormat=json&callback=?`;
+  
+        // const response = await fetch(apiUrl);
+        // console.log(response);
+        // const data = await response.json();
+        // setLocation(data);
+        await fetch('/api/route/GET');
+
+      } catch (error) {
+        console.error('Error fetching location data:', error);
+      }
+    }
+    GetLocation();
+  }, [position]);
+
   return (
     <div className='dataContainer'>
       <div className={'timeBox'}>
-        <div>현위치 기상</div>
+        <div>현위치 {location ? '인천' : '없ㅇ음'} 기상</div>
         <div>{time}</div>
       </div>
       <div className="dataBox">
