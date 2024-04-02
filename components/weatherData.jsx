@@ -113,7 +113,7 @@ export default function WeatherData({data, position}) {
         <div>{time}</div>
       </div>
       <div className="dataBox">
-        <div className="iconBox">
+        <div>
           {icon === 'rainy' ? <TiWeatherDownpour className="icon"/>
           : icon === 'sunny' ? <TiWeatherSunny className="icon"/>
           : icon === 'partlySun' ? <TiWeatherPartlySunny className="icon"/>
