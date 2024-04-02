@@ -13,9 +13,11 @@ export default function WeatherData({data, position}) {
   };
 
   const [time, setTime] = useState(GetClock());
-  const [location, setLocation] = useState(null);
-  console.log('기상데이터::', data);
-  console.log('현위치::', position);
+  const [location, setLocation] = useState([]);
+  const [dust, setDust] = useState(null);
+
+  // console.log('기상데이터::', data);
+  // console.log('현위치::', position);
   // 현재 기온
   const TMP = data[0].fcstValue;
   // 풍향
@@ -57,22 +59,10 @@ export default function WeatherData({data, position}) {
     return () => clearInterval(IntervalTime);
   }, []);
 
+  // 현재 좌표로 지역을 찾는 훅
   useEffect(() => {
     const GetLocation = async () => {
       try {
-        // const apiKey = '481EB071-C586-3A91-9DB2-23C53DC4ACA0';
-        // const crs = 'EPSG:4019';
-        // const point = `${position[1]},${position[0]}`;
-        // const format = 'json';
-        // const type = 'PARCEL';
-        // const zipcode = 'false';
-        // // const simple = 'true';
-        // const apiUrl = `https://api.vworld.kr/req/address?service=address&request=getAddress&version=2.0&key=${apiKey}&crs=${crs}&point=${point}&format=${format}&type=${type}&zipcode=${zipcode}&errorFormat=json&callback=?`;
-  
-        // const response = await fetch(apiUrl);
-        // console.log(response);
-        // const data = await response.json();
-        // setLocation(data);
         const data = await fetch('http://localhost:8080/api/getLocation', {
           method: "POST",
           headers: {
@@ -84,8 +74,7 @@ export default function WeatherData({data, position}) {
           })
         });
         const json = await data.json();
-        console.log('json::',json);
-        setLocation(json.response.result[0].structure.level1);
+        setLocation([json.response.result[0].structure.level1, json.response.result[0].structure.level2]);
   
       } catch (error) {
         console.error('Error fetching location data:', error);
@@ -94,10 +83,33 @@ export default function WeatherData({data, position}) {
     GetLocation();
   }, [position]);
 
+  // 미세먼지데이터 가져오기
+  useEffect(() => {
+    const GetDust = async () => {
+      try {
+        const data = await fetch('http://localhost:8080/api/getDust', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sido: `${location[0]}`
+          })
+        });
+        const json = await data.json();
+        setDust(json.response.body.items[0].pm25Value);
+
+      } catch (error) {
+        console.error('미세먼지데이터 가져오기 실패');
+      }
+    }
+    GetDust();
+  }, [location]);
+
   return (
     <div className='dataContainer'>
       <div className={'timeBox'}>
-        <div>현재 {!location ? '' : location} 기상</div>
+        <div>현재 {!location ? '' : `${location[0]} ${location[1]}`} 기상</div>
         <div>{time}</div>
       </div>
       <div className="dataBox">
@@ -115,9 +127,11 @@ export default function WeatherData({data, position}) {
             <li><span className="label">풍속</span><span className="value">{WSD}m/s</span></li>
             <li><span className="label">구름</span><span className="value">{SKY}</span></li>
             <li><span className="label">강수 확률</span><span className="value">{POP}%</span></li>
-            <li><span className="label">강수량</span><span className="value">{PCP === '강수없음' ? '강수없음' : `${PCP}mm`}</span></li>
+            <li><span className="label">강수량</span><span className="value">{PCP === '강수없음' ? '강수 없음' : `${PCP}mm`}</span></li>
             <li><span className="label">습도</span><span className="value">{REH}%</span></li>
-            <li><span className="label">미세먼지</span><span className="value">매우나쁨</span></li>
+            <li><span className="label">미세먼지</span><span className="value">{dust > 75 ? '매우 나쁨' 
+            : dust > 35 && dust < 76 ? '나쁨'
+            : dust > 15 && dust < 36 ? '보통' : '좋음'}</span></li>
           </ul>
         </div>
       </div>
