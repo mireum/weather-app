@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import dfs_xy_conv from "@/components/Function";
 import WeatherData from "@/components/weatherData";
-import styles from "../../styles/page.module.css"
+// import styles from "../../styles/page.module.css"
 import KakaoMap from "@/components/KakaoMap";
 
 export default function Home() {
@@ -45,7 +45,6 @@ export default function Home() {
           const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
           const day = new Date();
           const baseDate = day.getFullYear()+String(day.getMonth()+1).padStart(2, '0')+String(day.getDate()).padStart(2, '0');
-          // const baseTime = '0800';
           let nowTime = String(day.getHours())+String(day.getMinutes()).padStart(2, '0');
           nowTime = Number(nowTime);
           let standTime;
@@ -77,16 +76,17 @@ export default function Home() {
   return (
     <>
       <div>
-        <div className={styles.container}>
-          {weatherData ? (
-            <WeatherData data={weatherData.response.body.items.item} position={position}/>
-          ) : (
-            <p>날씨 정보를 가져오는 중...</p>
-          )}
-          <div className="flex">
-            <div className="absolute w-screen h-screen left-0 top-0">
-              <KakaoMap />
-            </div>
+        {/* <div className={styles.container}> */}
+        <div className="w-4/5 m-auto">
+          <div>
+            {weatherData ? (
+              <WeatherData data={weatherData.response.body.items.item} position={position}/>
+            ) : (
+              <p>날씨 정보를 가져오는 중...</p>
+            )}
+          </div>
+          <div className="w-3/5 m-auto h-screen">
+            <KakaoMap />
           </div>
         </div>
       </div>

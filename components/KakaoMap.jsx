@@ -7,7 +7,7 @@ const KakaoMap = () => {
   return (
     <>
       <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
-      <Map center={{ lat: 33.450701, lng: 126.570667 }} style={{ width: '50%', height: '50%' }}>
+      <Map center={{ lat: 33.450701, lng: 126.570667 }} style={{ width: '100%', height: '70%' }}>
       </Map>
     </>
   );
