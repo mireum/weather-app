@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import dfs_xy_conv from "@/components/Function";
 import WeatherData from "@/components/weatherData";
 import styles from "../../styles/page.module.css"
+import KakaoMap from "@/components/KakaoMap";
 
 export default function Home() {
 
@@ -82,8 +83,10 @@ export default function Home() {
           ) : (
             <p>날씨 정보를 가져오는 중...</p>
           )}
-          <div>
-            카카오지도
+          <div className="flex">
+            <div className="absolute w-screen h-screen left-0 top-0">
+              <KakaoMap />
+            </div>
           </div>
         </div>
       </div>
