@@ -82,9 +82,9 @@ export default function Home() {
           ) : (
             <p>날씨 정보를 가져오는 중...</p>
           )}
-        </div>
-        <div>
-          카카오지도
+          <div>
+            카카오지도
+          </div>
         </div>
       </div>
     </>
