@@ -47,7 +47,7 @@ export default function WeatherData({data, position}) {
   const REH = data[10].fcstValue;
   // 아이콘
   let icon;
-  if (Number(POP) > 70) {icon = 'rainy'}
+  if (PCP !== '강수없음') {icon = 'rainy'}
   else if (SKY === "맑음") {icon = 'sunny'}
   else if (SKY === "구름 많음") {icon = 'partlySun'}
   else {icon = 'cloudy'}
@@ -63,7 +63,7 @@ export default function WeatherData({data, position}) {
   useEffect(() => {
     const GetLocation = async () => {
       try {
-        const data = await fetch('http://localhost:8080/api/getLocation', {
+        const data = await fetch('http://localhost:3000/api/getLocation', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export default function WeatherData({data, position}) {
   useEffect(() => {
     const GetDust = async () => {
       try {
-        const data = await fetch('http://localhost:8080/api/getDust', {
+        const data = await fetch('http://localhost:3000/api/getDust', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -127,7 +127,7 @@ export default function WeatherData({data, position}) {
             <li><span className="label">풍속</span><span className="value">{WSD}m/s</span></li>
             <li><span className="label">구름</span><span className="value">{SKY}</span></li>
             <li><span className="label">강수 확률</span><span className="value">{POP}%</span></li>
-            <li><span className="label">강수량</span><span className="value">{PCP === '강수없음' ? '강수 없음' : `${PCP}mm`}</span></li>
+            <li><span className="label">강수량</span><span className="value">{PCP === '강수없음' ? '강수 없음' : `${PCP}`}</span></li>
             <li><span className="label">습도</span><span className="value">{REH}%</span></li>
             <li><span className="label">미세먼지</span><span className="value">{dust > 75 ? '매우 나쁨' 
             : dust > 35 && dust < 76 ? '나쁨'
