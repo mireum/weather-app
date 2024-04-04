@@ -32,27 +32,23 @@ async function getStaticProps() {
   else {standTime = '0200'}
   const baseTime = standTime;
 
-  const promises = locArr.map( async (item) => {
+  locArr.map( async (item, index) => {
     const nx = item.nx;
     const ny = item.ny;
     const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
-    return data;
+    item.tem = data.response.body.items.item[0].fcstValue;
+    // return data;
   });
 
-  const result = await Promise.all(promises);
-  return result;
+  return locArr;
+
 }
-const data = getStaticProps().then((result) => {
-  console.log('성공');
-  console.log(result);
-}).catch((error) => {
-  console.error('실패');
-});
-console.log("data::", data);
 
 const KakaoMap = () => {
+  const arr = getStaticProps();
+  
   return (
     <>
       <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
@@ -70,7 +66,7 @@ const KakaoMap = () => {
                 lng: item.lng,
               }}
             >
-              <div style={{ height: "30px", padding: "3px" }}>{item.name} 기온 15&#8451;</div>
+              <div style={{ height: "30px", padding: "3px" }}>{item.name} 기온 {item.tem}&#8451;</div>
             </MapMarker>
           )
         })}
