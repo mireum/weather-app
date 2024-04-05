@@ -63,7 +63,7 @@ export default function WeatherData({data, position}) {
   useEffect(() => {
     const GetLocation = async () => {
       try {
-        const data = await fetch('http://localhost:3000/api/getLocation', {
+        const data = await fetch('api/getLocation', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
