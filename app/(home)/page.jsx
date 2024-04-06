@@ -5,6 +5,8 @@ import dfs_xy_conv from "@/components/Function";
 import WeatherData from "@/components/weatherData";
 // import styles from "../../styles/page.module.css"
 import KakaoMap from "@/components/KakaoMap";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -12,6 +14,10 @@ export default function Home() {
   const [longitude, setLongitude] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [position, setPosition] = useState([]);
+
+  // 세션 상태
+  const { data } = useSession();
+  console.log("세션::", data);
 
   // 현재 사용자의 좌표를 얻는 함수
   useEffect(() => {
@@ -76,6 +82,31 @@ export default function Home() {
   return (
     <>
       <div>
+        <div className="flex gap-5 p-2 bg-slate-200 ">
+          <Link className="text-sky-600 hover:text-sky-700" href={"/"}>
+            Home
+          </Link>
+
+          <div className="flex gap-2 ml-auto">
+            {data?.user ? (
+              <>
+                <img
+                  className="w-8 h-8 rounded-full"
+                  src={data.user.image || ""}
+                />
+                <p className="text-sky-600"> {data.user.email}</p>
+                <button className="text-red-500" onClick={() => signOut()}>
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <button className="text-green-600" onClick={() => signIn()}>
+                Sign In
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* <div className={styles.container}> */}
         <div className="w-4/5 m-auto">
           <div>
