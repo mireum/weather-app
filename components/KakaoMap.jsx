@@ -19,8 +19,8 @@ async function getStaticProps() {
   const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
   const day = new Date();
   const baseDate = day.getFullYear()+String(day.getMonth()+1).padStart(2, '0')+String(day.getDate()).padStart(2, '0');
-  let nowTime = String(day.getHours())+String(day.getMinutes()).padStart(2, '0');
-  nowTime = Number(nowTime);
+  let nowTime = Number(day.getHours().toString()+day.getMinutes().toString().padStart(2, '0'));
+  // nowTime = Number(nowTime);
   let standTime;
   if (nowTime > 2310) {standTime = '2300'}
   else if (nowTime > 2010) {standTime = '2000'}
