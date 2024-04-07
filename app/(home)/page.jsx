@@ -16,7 +16,6 @@ export default function Home() {
 
   // 세션 상태
   const { data } = useSession();
-  console.log(data);
 
   // 현재 사용자의 좌표를 얻는 함수
   useEffect(() => {
@@ -45,36 +44,25 @@ export default function Home() {
   // 받은 사용자의 좌표로 그 지역의 날씨 api 요청
   useEffect(() => {
     if (latitude && longitude) {
-      const FetchData = async () => {
+      const getWeather = async () => {
         try {
-          const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
-          const day = new Date();
-          const baseDate = day.getFullYear()+String(day.getMonth()+1).padStart(2, '0')+String(day.getDate()).padStart(2, '0');
-          let nowTime = String(day.getHours())+String(day.getMinutes()).padStart(2, '0');
-          nowTime = Number(nowTime);
-          let standTime;
-          if (nowTime > 2310) {standTime = '2300'}
-          else if (nowTime > 2010) {standTime = '2000'}
-          else if (nowTime > 1710) {standTime = '1700'}
-          else if (nowTime > 1410) {standTime = '1400'}
-          else if (nowTime > 1110) {standTime = '1100'}
-          else if (nowTime > 810) {standTime = '0800'}
-          else if (nowTime > 510) {standTime = '0500'}
-          else {standTime = '0200'}
-          const baseTime = standTime;
-          const nx = `${longitude}`;
-          const ny = `${latitude}`;
-          const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
-
-          const response = await fetch(apiUrl);
-          const data = await response.json();
-          setWeatherData(data);
+          const data = await fetch('api/getWeather', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              lng: `${longitude}`,
+              lat: `${latitude}`,
+            })
+          });
+          const json = await data.json();
+          setWeatherData(json);
         } catch (error) {
-          console.error('Error fetching weather data:', error);
+          console.error(error);
         }
-      };
-
-      FetchData();
+      }
+      getWeather();
     }
   }, [latitude, longitude]);
  
@@ -82,7 +70,7 @@ export default function Home() {
     <>
       <div>
         <div className="w-4/5 m-auto">
-          <div className="flex gap-5 p-2 bg-slate-200 ">
+          <div className="w-3/5 m-auto flex p-5">
             <Link className="text-sky-600 hover:text-sky-700" href={"/"}>
               그날그날
             </Link>

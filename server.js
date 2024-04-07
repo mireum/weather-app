@@ -11,38 +11,7 @@ app.prepare().then(() => {
 
   server.use(bodyParser.json());
   
-  // 좌표로 지역의 날씨 api 받아오기
-  server.post('/api/getWeather', async (req, res) => {
-    try {
-      
-      const apiKey = 'ero0PCiw0xS0m5XbHGdRNe4XLQfmyRSHVU2pPJQ7xx%2B%2BC2lnsL7zametsqSaIqJNoTXnkKCdi2l5oIxMKgLR%2FQ%3D%3D';
-      const day = new Date();
-      const baseDate = day.getFullYear()+String(day.getMonth()+1).padStart(2, '0')+String(day.getDate()).padStart(2, '0');
-      let nowTime = String(day.getHours())+String(day.getMinutes()).padStart(2, '0');
-      nowTime = Number(nowTime);
-      let standTime;
-      if (nowTime > 2310) {standTime = '2300'}
-      else if (nowTime > 2010) {standTime = '2000'}
-      else if (nowTime > 1710) {standTime = '1700'}
-      else if (nowTime > 1410) {standTime = '1400'}
-      else if (nowTime > 1110) {standTime = '1100'}
-      else if (nowTime > 810) {standTime = '0800'}
-      else if (nowTime > 510) {standTime = '0500'}
-      else {standTime = '0200'}
-      const baseTime = standTime;
-      const nx = `${longitude}`;
-      const ny = `${latitude}`;
-      const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
-
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      setWeatherData(data);
-
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
+  
   // 좌표로 지역명 찾기
   server.post('/api/getLocation', async (req, res) => {
     try {
@@ -61,6 +30,38 @@ app.prepare().then(() => {
       res.status(500).json({ error: '내부 서버 오류' });
     }
   });
+
+  // 좌표로 지역의 날씨 api 받아오기
+  server.post('/api/getWeather', async (req, res) => {
+    try {
+      const apiKey = process.env.WEATHER_API_KEY;
+      const day = new Date();
+      const baseDate = day.getFullYear()+String(day.getMonth()+1).padStart(2, '0')+String(day.getDate()).padStart(2, '0');
+      let nowTime = String(day.getHours())+String(day.getMinutes()).padStart(2, '0');
+      nowTime = Number(nowTime);
+      let standTime;
+      if (nowTime > 2310) {standTime = '2300'}
+      else if (nowTime > 2010) {standTime = '2000'}
+      else if (nowTime > 1710) {standTime = '1700'}
+      else if (nowTime > 1410) {standTime = '1400'}
+      else if (nowTime > 1110) {standTime = '1100'}
+      else if (nowTime > 810) {standTime = '0800'}
+      else if (nowTime > 510) {standTime = '0500'}
+      else {standTime = '0200'}
+      const baseTime = standTime;
+      const nx = req.body.lng;
+      const ny = req.body.lat;
+      const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
+
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      res.json(data);
+
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
 
   // 지역명의 미세먼지 지수 찾기
   server.post('/api/getDust', async (req, res) => {

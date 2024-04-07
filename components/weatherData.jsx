@@ -108,7 +108,7 @@ export default function WeatherData({data, position}) {
 
   return (
     <div className='dataContainer'>
-      <div className={'timeBox'}>
+      <div className='timeBox'>
         <div>현재 {!location ? '' : `${location[0]} ${location[1]}`} 기상</div>
         <div>{time}</div>
       </div>
