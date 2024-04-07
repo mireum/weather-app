@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import dfs_xy_conv from "@/components/Function";
+import { dfs_xy_conv } from "@/components/Function";
 import WeatherData from "@/components/weatherData";
 import KakaoMap from "@/components/KakaoMap";
 import { signIn, signOut, useSession } from "next-auth/react";

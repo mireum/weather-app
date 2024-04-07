@@ -16,8 +16,6 @@ export default function WeatherData({data, position}) {
   const [location, setLocation] = useState([]);
   const [dust, setDust] = useState(null);
 
-  // console.log('기상데이터::', data);
-  // console.log('현위치::', position);
   // 현재 기온
   const TMP = data[0].fcstValue;
   // 풍향

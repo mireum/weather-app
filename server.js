@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const next = require('next');
+const { getDate } = require('./components/API_Function');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -49,18 +50,7 @@ app.prepare().then(() => {
       const apiKey = process.env.WEATHER_API_KEY;
       const day = new Date();
       const baseDate = day.getFullYear()+String(day.getMonth()+1).padStart(2, '0')+String(day.getDate()).padStart(2, '0');
-      let nowTime = String(day.getHours())+String(day.getMinutes()).padStart(2, '0');
-      nowTime = Number(nowTime);
-      let standTime;
-      if (nowTime > 2310) {standTime = '2300'}
-      else if (nowTime > 2010) {standTime = '2000'}
-      else if (nowTime > 1710) {standTime = '1700'}
-      else if (nowTime > 1410) {standTime = '1400'}
-      else if (nowTime > 1110) {standTime = '1100'}
-      else if (nowTime > 810) {standTime = '0800'}
-      else if (nowTime > 510) {standTime = '0500'}
-      else {standTime = '0200'}
-      const baseTime = standTime;
+      const baseTime = getDate();
       const nx = req.body.lng;
       const ny = req.body.lat;
       const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&numOfRows=12&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
@@ -114,18 +104,7 @@ app.prepare().then(() => {
       const apiKey = process.env.WEATHER_API_KEY;
       const day = new Date();
       const baseDate = day.getFullYear()+String(day.getMonth()+1).padStart(2, '0')+String(day.getDate()).padStart(2, '0');
-      let nowTime = String(day.getHours())+String(day.getMinutes()).padStart(2, '0');
-      nowTime = Number(nowTime);
-      let standTime;
-      if (nowTime > 2310) {standTime = '2300'}
-      else if (nowTime > 2010) {standTime = '2000'}
-      else if (nowTime > 1710) {standTime = '1700'}
-      else if (nowTime > 1410) {standTime = '1400'}
-      else if (nowTime > 1110) {standTime = '1100'}
-      else if (nowTime > 810) {standTime = '0800'}
-      else if (nowTime > 510) {standTime = '0500'}
-      else {standTime = '0200'}
-      const baseTime = standTime;
+      const baseTime = getDate();
 
       const promises = locArr.map( async (item) => {
         const nx = item.nx;
@@ -137,7 +116,7 @@ app.prepare().then(() => {
         return item;
       });
       const results = await Promise.all(promises);
-      console.log(results);
+      res.json(results);
 
     } catch (error) {
       console.error(error);
