@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const next = require('next');
-const { getDate } = require('./components/API_Function');
+const { getDate } = require('./components/API_Function.js');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
