@@ -2,7 +2,7 @@
 // 중복요청방지
 const nextConfig = {
   reactStrictMode: false,
-  output: 'export',
+  // output: 'export',
 };
 
 export default nextConfig;

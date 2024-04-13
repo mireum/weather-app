@@ -46,7 +46,7 @@ export default function Home() {
     if (latitude && longitude) {
       const getWeather = async () => {
         try {
-          const data = await fetch('api/getWeather', {
+          const data = await fetch('https://dayday.devcjw.com/api/getWeather', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
