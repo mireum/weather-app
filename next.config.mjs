@@ -2,6 +2,7 @@
 // 중복요청방지
 const nextConfig = {
   reactStrictMode: false,
+  assetPrefix: '.',
   // output: 'export',
 };
 
