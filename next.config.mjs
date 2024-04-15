@@ -2,7 +2,7 @@
 // 중복요청방지
 const nextConfig = {
   reactStrictMode: false,
-  assetPrefix: '.',
+  assetPrefix: 'https://dayday.devcjw.com',
   // output: 'export',
 };
 

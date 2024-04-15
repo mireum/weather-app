@@ -61,7 +61,7 @@ export default function WeatherData({data, position}) {
   useEffect(() => {
     const GetLocation = async () => {
       try {
-        const data = await fetch('https://dayday.devcjw.com/api/getLocation', {
+        const data = await fetch('/api/getLocation', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export default function WeatherData({data, position}) {
   useEffect(() => {
     const GetDust = async () => {
       try {
-        const data = await fetch('https://dayday.devcjw.com/api/getDust', {
+        const data = await fetch('/api/getDust', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
