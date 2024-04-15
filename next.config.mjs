@@ -3,12 +3,6 @@
 const nextConfig = {
   reactStrictMode: false,
   assetPrefix: '.',
-  // headers : [
-  //   {
-  //     key: 'Access-Control-Allow-Origin',
-  //     value: process.env.NEXT_PUBLIC_APP_URL,
-  //   },
-  // ],
   // output: 'export',
 };
 

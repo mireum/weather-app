@@ -47,7 +47,7 @@ export default function Home() {
       const getWeather = async () => {
         try {
           // https://dayday.devcjw.com
-          const data = await fetch('/api/getWeather', {
+          const data = await fetch('https://dayday.devcjw.com/api/getWeather', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
