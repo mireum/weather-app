@@ -2,13 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const next = require('next');
 const { getDate } = require('./components/API_Function.js');
+const path = require('path');
 
 const dev = process.env.NODE_ENV !== 'production';
-// const app = next({ dev });
-const app = next({
-  dev,
-  conf: { distDir: `${path.relative(process.cwd(), __dirname)}/../next` },
-});
+const app = next({ dev });
+// const app = next({
+//   dev,
+//   conf: { distDir: `${path.relative(process.cwd(), __dirname)}/../next` },
+// });
 const handle = app.getRequestHandler();
 
 const locArr = [
@@ -132,8 +133,8 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(3001, (err) => {
+  server.listen(3000, (err) => {
     if (err) throw err;
-    console.log('> Ready on http://localhost:3001');
+    console.log('> Ready on http://localhost:3000');
   });
 });
