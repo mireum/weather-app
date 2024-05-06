@@ -2,14 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const next = require('next');
 const { getDate } = require('./components/API_Function.js');
-// const path = require('path');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
-// const app = next({
-//   dev,
-//   conf: { distDir: `${path.relative(process.cwd(), __dirname)}/../next` },
-// });
 const handle = app.getRequestHandler();
 
 const locArr = [

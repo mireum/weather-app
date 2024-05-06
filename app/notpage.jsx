@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { dfs_xy_conv } from "@/components/Function";
 import WeatherData from "@/components/WeatherData";
 import KakaoMap from "@/components/KakaoMap";
-import { signIn, signOut, useSession } from "next-auth/react";
+// import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
   const [position, setPosition] = useState([]);
 
   // 세션 상태
-  const { data } = useSession();
+  // const { data } = useSession();
 
   // 현재 사용자의 좌표를 얻는 함수
   useEffect(() => {
@@ -46,6 +46,7 @@ export default function Home() {
     if (latitude && longitude) {
       const getWeather = async () => {
         try {
+          // https://dayday.devcjw.com
           const data = await fetch('http://localhost:3001/api/getWeather', {
             method: "POST",
             headers: {
@@ -76,7 +77,7 @@ export default function Home() {
             </Link>
 
             <div className="flex gap-2 ml-auto">
-              {data?.user ? (
+              {/* {data?.user ? (
                 <>
                   <img
                     className="w-8 h-8 rounded-full"
@@ -84,14 +85,16 @@ export default function Home() {
                   />
                   <p className="text-sky-600"> {data.user.name}</p>
                   <button className="text-red-500" onClick={() => signOut()}>
+                  <button className="text-red-500" onClick={undefined}>
                     Sign Out
                   </button>
                 </>
               ) : (
-                <button className="text-green-600" onClick={() => signIn()}>
+                 <button className="text-green-600" onClick={() => signIn()}> */}
+                <button className="text-green-600" onClick={undefined}>
                   Sign In
                 </button>
-              )}
+              {/* )} */}
             </div>
           </div>
 
