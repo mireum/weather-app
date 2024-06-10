@@ -12,7 +12,8 @@ const KakaoMap = () => {
   useEffect(() => {
     const getStaticProps = async () => {
       try {
-        const data = await fetch('http://localhost:3001/api/getMapWeather');
+        // const data = await fetch('http://localhost:3001/api/getMapWeather');
+        const data = await fetch('https://thedayday.netlify.app/api/getMapWeather');
         const json = await data.json();
         setLocArr(json);
       } catch (error) {
