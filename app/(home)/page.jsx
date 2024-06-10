@@ -46,8 +46,8 @@ export default function Home() {
     if (latitude && longitude) {
       const getWeather = async () => {
         try {
-          // const data = await fetch('http://localhost:3001/api/getWeather', {
-          const data = await fetch('https://thedayday.netlify.app/api/getWeather', {
+          const data = await fetch('http://localhost:3001/api/getWeather', {
+          // const data = await fetch('https://thedayday.netlify.app/api/getWeather', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
