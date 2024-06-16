@@ -15,31 +15,10 @@ export default function Home() {
   const [position, setPosition] = useState([]);
 
   // 세션 상태
-  // const { data } = useSession();
+  const { data } = useSession();
 
   // 현재 사용자의 좌표를 얻는 함수
-  useEffect(() => {
-    const GetLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const nxny = dfs_xy_conv("toXY", position.coords.latitude, position.coords.longitude);
-            console.log(nxny);
-            setLatitude(nxny.x);
-            setLongitude(nxny.y);
-            setPosition([nxny.lat, nxny.lng]);
-          },
-          (error) => {
-            console.error('Error getting geolocation:', error);
-          }
-        );
-      } else {
-        console.error('Geolocation is not supported by this browser.');
-      }
-    };
-
-    GetLocation();
-  }, []);
+  
 
   // // 받은 사용자의 좌표로 그 지역의 날씨 api 요청
   // useEffect(() => {
