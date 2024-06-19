@@ -16,59 +16,31 @@ export default function Home() {
   // 세션 상태
   const { data } = useSession();
 
-  // 현재 사용자의 좌표를 얻는 함수
-  
-
-  // // 받은 사용자의 좌표로 그 지역의 날씨 api 요청
-  // useEffect(() => {
-  //   if (latitude && longitude) {
-  //     const getWeather = async () => {
-  //       try {
-  //         // https://dayday.devcjw.com
-  //         const data = await fetch('http://localhost:3000/api/getWeather', {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify({
-  //             lng: `${longitude}`,
-  //             lat: `${latitude}`,
-  //           })
-  //         });
-  //         const json = await data.json();
-  //         setWeatherData(json);
-  //       } catch (error) {
-  //         console.error(error);
-  //       }
-  //     }
-  //     getWeather();
-  //   }
-  // }, [latitude, longitude]);
     // 받은 사용자의 좌표로 그 지역의 날씨 api 요청
-    useEffect(() => {
-      if (latitude && longitude) {
-        const getWeather = async () => {
-          try {
-            // https://dayday.devcjw.com
-            const data = await fetch('http://localhost:3000/api/getWeather', {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                lng: `${longitude}`,
-                lat: `${latitude}`,
-              })
-            });
-            const json = await data.json();
-            setWeatherData(json);
-          } catch (error) {
-            console.error(error);
-          }
-        }
-        getWeather();
-      }
-    }, [latitude, longitude]);
+    // useEffect(() => {
+    //   if (latitude && longitude) {
+    //     const getWeather = async () => {
+    //       try {
+    //         // https://dayday.devcjw.com
+    //         const data = await fetch('http://localhost:3000/api/getWeather', {
+    //           method: "POST",
+    //           headers: {
+    //             "Content-Type": "application/json",
+    //           },
+    //           body: JSON.stringify({
+    //             lng: `${longitude}`,
+    //             lat: `${latitude}`,
+    //           })
+    //         });
+    //         const json = await data.json();
+    //         setWeatherData(json);
+    //       } catch (error) {
+    //         console.error(error);
+    //       }
+    //     }
+    //     getWeather();
+    //   }
+    // }, [latitude, longitude]);
  
   return (
     <>
